@@ -1,6 +1,6 @@
 # Week 2 
 
-#### INTRODUCTION
+### INTRODUCTION
 
 Note to self: Typical syntax follows this order 
 ```sql
@@ -11,7 +11,6 @@ GROUP BY variable
 HAVING condition
 ORDER BY category ASC / DESC
 ```
-Other notes:
 - Only SELECT + FROM are actually required. Rest = optional
 - DB will physically manage and plan the how aspect of retrieving it best (aka not your problem for now). Focus on extracting data first. 
 - To tell db that data is missing, type NULL, not zero.
@@ -30,7 +29,7 @@ The DUKE course uses the dialect, *MySQL*. However, MySQL is a nappy hipster tha
 4. Make indentations for new subqueries or new lines. You'll learn more about this later. 
 2. Although MySQL accepts both single and double inverted commas, stick to single commas where possible. Most other DBs only accept single ticks. 
 
-# First Look At Your Database
+# Start: First Look At Your Database
 *Let's assume you're exploring a new DB, but have no diagrams about it. How would you explore and get to know it?*
 
 To make something the default database for our queries, run this command:
