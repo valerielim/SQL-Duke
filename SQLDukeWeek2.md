@@ -1,4 +1,4 @@
-# Week 2 Lecture - SELECT 
+# Week 2 
 
 #### INTRODUCTION
 
@@ -11,19 +11,18 @@ GROUP BY variable
 HAVING condition
 ORDER BY category ASC / DESC
 ```
-
 Other notes:
 - Only SELECT + FROM are actually required. Rest = optional
 - DB will physically manage and plan the how aspect of retrieving it best (aka not your problem for now). Focus on extracting data first. 
 - To tell db that data is missing, type NULL, not zero.
 
-#### Style Notes
+### Style Notes
 1. CAPITALISE all commands aka first word
 2. CAPITALISE other keywords like 'sum' or 'avg' too
 2. End all queries with ; 
 2. Start each command on a new line (easier to read)
 
-#### Optional but Good To Follow
+### Optional but Good To Follow
 The DUKE course uses the dialect, *MySQL*. However, MySQL is a nappy hipster that doesn't quite follow SQL convention. In fact, it's pretty far out. If you ever need to change to a different SQL dialect, you'll need these rules too. Hence, it might be a good idea to start making them a habit now.
 
 1. Not all DBs are case insensitive. Try to write the EXACT name used in database, CaPiTal letters and all.
