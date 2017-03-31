@@ -1,10 +1,7 @@
 /* ANSWER KEY: Week 3 Exercise 7 - Inner Joins 
 
 This is the COMPLETE answer key (including explanations) for Week 3 of the DUKE UNIVERSITY "Managing Big Data wtih MySQL" course. 
-
-
 Date created: 15 March 2017
-
 
 */
 
@@ -36,7 +33,6 @@ LIMIT 200;
 -- BOX 3
 -- Expected: 38 rows
 
-%%sql
 SELECT 
 	d.dog_guid AS DogID, 
 	d.user_guid AS UserID, 
@@ -77,7 +73,6 @@ The original purpose of this question was to explore if users who gave a high av
 The correct query to get 389 rows should be:
 */
 
-%%sql
 SELECT DISTINCT 
     r.user_guid AS UserID, 
     AVG(r.rating) AS AvgRating, 
@@ -97,7 +92,6 @@ Note: The reason for this discrepancy (users vs dogs) is because some users have
 -- BOX 5 QN 1
 -- Expected: 5991 (1 row)
 
-%%sql
 SELECT COUNT(DISTINCT dog_guid)
 FROM reviews
 
@@ -106,7 +100,6 @@ FROM reviews
 -- BOX 6 QN 2
 -- Expected: 5586 (1 row)
 
-%%sql
 SELECT COUNT(DISTINCT user_guid)
 FROM reviews
 
@@ -115,7 +108,6 @@ FROM reviews
 -- BOX 7 QN 3
 -- Expected: 30967 (1 row)
 
-%%sql
 SELECT COUNT(DISTINCT user_guid)
 FROM dogs
 
@@ -124,7 +116,6 @@ FROM dogs
 -- BOX 8 QN 4
 -- Expected: 35050 (1 row)
 
-%%sql
 SELECT COUNT(DISTINCT dog_guid)
 FROM dogs
 
@@ -133,7 +124,6 @@ FROM dogs
 -- BOX 9
 -- Expected: 5589 (1 row)
 
-%%sql
 SELECT COUNT(DISTINCT d.user_guid)
   FROM dogs d,
        reviews r 
@@ -143,7 +133,6 @@ SELECT COUNT(DISTINCT d.user_guid)
 
 -- Expected: 389 (1 row)
 
-%%sql
 SELECT COUNT(DISTINCT d.user_guid)
   FROM dogs d,
        reviews r 
@@ -154,7 +143,6 @@ SELECT COUNT(DISTINCT d.user_guid)
 -- BOX 10 QN 5
 -- Expected: 20845 rows
 
-%%sql
 SELECT 
 	c.user_guid, 
 	c.dog_guid,
@@ -170,7 +158,6 @@ WHERE c.dog_guid=d.dog_guid
 -- BOX 11 QN 6
 -- Expected: 711 rows
 
-%%sql
 SELECT DISTINCT 
 	u.user_guid,
 	u.membership_type,
@@ -185,7 +172,7 @@ WHERE c.dog_guid = d.dog_guid
 
 -- BOX 12 QN 7
 -- Expected: 30 rows
-%%sql
+
 SELECT DISTINCT
     d.dog_guid, 
     d.breed
@@ -199,7 +186,6 @@ WHERE d.user_guid = u.user_guid
 -- BOX 12 QN 8
 -- Expected: 5 rows (first row should be 1, 2900)
 
-%%sql
 SELECT
 	u.membership_type AS 'Membership Type',
 	COUNT(DISTINCT r.user_guid) AS 'Total Reviews'
@@ -214,7 +200,6 @@ ORDER BY COUNT(r.user_guid) DESC;
 -- BOX 13 QN 9
 -- Expected: 5 rows (first row should be 1, 2900)
 
-%%sql
 SELECT
 	u.membership_type AS 'Membership Type',
 	COUNT(DISTINCT r.user_guid) AS 'Total Reviews'
@@ -229,7 +214,6 @@ ORDER BY COUNT(r.user_guid) DESC;
 -- BOX 14 QN 10
 -- Expected: 3 rows (breeds should be mixed, golden retriever, and golden retriever-labrador mix)
 
-%%sql
 SELECT
 d.breed,
 COUNT(sa.script_detail_id)
@@ -239,3 +223,5 @@ WHERE d.dog_guid = sa.dog_guid
 GROUP BY d.breed
 ORDER BY COUNT(sa.script_detail_id) DESC
 LIMIT 3;
+
+-- END --
