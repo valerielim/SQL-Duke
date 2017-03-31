@@ -32,7 +32,7 @@ AND test_name='Yawn Warm-up';
 
 
 
--- BOX 2
+-- BOX 3
 -- Expected: 932 rows
 
 SELECT 
@@ -52,7 +52,7 @@ ORDER BY AvgRating DESC
 
 
 
--- BOX 3
+-- BOX 4
 -- Expected: 894 rows
 
 SELECT 
@@ -72,7 +72,7 @@ ORDER BY AvgRating DESC;
 
 
 
--- BOX 4
+-- BOX 5
 -- Expected: 35050 rows
 
 SELECT 
@@ -86,7 +86,7 @@ ORDER BY COUNT(c.dog_guid) ASC;
 
 
 
--- BOX 5
+-- BOX 6
 -- Expected: 17987 rows
 
 SELECT 
@@ -100,7 +100,7 @@ ORDER BY COUNT(c.dog_guid) ASC;
 
 
 
--- BOX 6 QN 5
+-- BOX 7 QN 5
 -- Expected: 1 row (17986)
 
 SELECT count(distinct dog_guid)
@@ -108,7 +108,7 @@ FROM complete_tests;
 
 
 
--- BOX 7 QN 6
+-- BOX 8 QN 6
 -- Expected: 952557 rows
 
 SELECT 
@@ -123,7 +123,7 @@ FROM users u LEFT JOIN dogs d
 
 
 
--- BOX 8 QN 7
+-- BOX 9 QN 7
 -- Expected: 33193 rows
 
 SELECT 
@@ -139,7 +139,7 @@ ORDER BY numrows DESC;
 
 
 
--- BOX 9 QN 8
+-- BOX 10 QN 8
 -- Expected: 17 rows
 
 SELECT count(user_guid)
@@ -148,7 +148,7 @@ where user_guid = 'ce225842-7144-11e5-ba71-058fbc01cf0b'
 
 
 
--- BOX 10 QN 9
+-- BOX 11 QN 9
 -- Expected: 26 rows
 
 SELECT count(user_guid)
@@ -156,7 +156,7 @@ from dogs
 where user_guid = 'ce225842-7144-11e5-ba71-058fbc01cf0b'
 
 
--- BOX 11 QN 10
+-- BOX 12 QN 10
 -- Expected: 2226 rows
 
 SELECT DISTINCT
@@ -168,7 +168,7 @@ WHERE d.user_guid IS NULL
 
 
 
--- BOX 12 QN 11
+-- BOX 13 QN 11
 -- Expected: 2226 rows
 
 SELECT DISTINCT
@@ -182,7 +182,7 @@ WHERE d.user_guid IS NULL
 
 
 
--- BOX 13 QN 12
+-- BOX 14 QN 12
 -- Expected: 5833 rows
 SELECT DISTINCT 
     sa.dog_guid AS 'Dog ID',
