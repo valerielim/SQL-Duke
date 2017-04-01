@@ -1,18 +1,30 @@
-# warmhands
+# Cold Fingers
 
-(Completed) Duke University's SQL Course
+Compilation of Duke University's Managing Big Data with MySQL Course (2017)
 
-### Contents 
+### Lecture Notes
 
 * Week 1 - ER Diagrams, RS, database concepts
-* Week 2 - Basic commands: select, where, from, order by, limit, operations
-* Week 3 - More commands: group by, having, distinct, more operations
-* Week 3 - Inner Joins + examples
-* Week 3 - Outer Joins + examples
-* Week 4 - Subqueries 
+* Week 2 - Select, where, from, order by, limit, operations
+* Week 3 - Group by, having, distinct, operators
+* Week 3 - Inner Joins, Outer Joins + examples
+* Week 4 - Subqueries & more Operators + examples
 
-### Non-course Contents
+*Note: For Week 3 & 4, I chose to focus more on* examples *of joins instead of lengthy theoretical explanations of what joins are. I wrote it this way because I realised that I'd simply be paraphrasing Duke's notes which isn't efficient or honest. So I focused on listing examples that helped me understand the concepts better.*
+
+### Assignments
 
 * SQL Cheatsheet (mine!) 
-* Test answers for week 1-4 (MySQL)
-* Suggestions to Duke for better phrasing of SQL questions
+* MySQL answers for Week 3: Ex 7
+* MySQL answers for Week 3: Ex 8
+* MySQL answers for Week 4: Ex 9
+* Teradata Week 2
+
+*Note: Answers to Exercise 1-6 of Week 1 & Week 2 are not included because:*
+
+1. *It's really easy.*
+2. *It's already available online as part of the course.*
+
+### License
+
+MIT. 
