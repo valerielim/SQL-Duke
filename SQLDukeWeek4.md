@@ -1,4 +1,4 @@
-# Week 4 - Subqueries
+# Week 4 - Subqueries & Operators
 
 Subqueries, which are also sometimes called inner queries or nested queries, are queries that are embedded within the context of another query. They are useful for complex queries, and also for testing smaller parts of the queries to ensure they give you what you want first before assembling the whole thing. Some basic rules are:
 
@@ -104,7 +104,13 @@ HAVING numrows > 10
 ORDER BY numrows DESC
 ```
 
-# OPERATIONS: IF
+# OPERATORS
+
+* IF
+* CASE
+* NOT, AND, OR
+
+### #1: OPERATORS - IF
 
 Can segment queries conditionally using IF, especially if the situation has clear true/false conditions. IF can also be nested into loops. Note on syntax for using : IF 
 
@@ -170,7 +176,7 @@ LIMIT 50;
 ```
 However, you can see this is not very efficient as the number of conditions increases. For those, it is better to use CASE. 
 
-# OPERATORS: CASE 
+### #2: OPERATORS - CASE
 
 Syntax for CASE:
 ```
@@ -228,7 +234,7 @@ CASE
 FROM BST
 ORDER BY N;
 ```
-# OPERATORS: NOT, AND, OR
+### #3: OPERATORS - NOT, AND, OR
 
 These operators can be used to make true/false logic statements. They are evaluated in that order: Not, And, Or. This means that any NOT statements will be evaluated first, followed by AND, then OR.
 
