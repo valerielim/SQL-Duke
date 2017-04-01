@@ -1,6 +1,8 @@
 # Cold Fingers
 
-Compilation of Duke University's Managing Big Data with MySQL Course (2017)
+Answers to Duke University's Managing Big Data with MySQL Course (2017). 
+
+*If you're wondering what the name means - my fingers were cold when I made this.*
 
 ### Lecture Notes
 
@@ -14,11 +16,12 @@ Compilation of Duke University's Managing Big Data with MySQL Course (2017)
 
 ### Assignments
 
-* SQL Cheatsheet (mine!) 
 * MySQL answers for Week 3: Ex 7
 * MySQL answers for Week 3: Ex 8
 * MySQL answers for Week 4: Ex 9
-* Teradata Week 2
+* Teradata Week 2 answers
+* Teradata Week 3 answers
+* *No assignment for Week 4, do quiz instead*
 
 *Note: Answers to Exercise 1-6 of Week 1 & Week 2 are not included because:*
 
