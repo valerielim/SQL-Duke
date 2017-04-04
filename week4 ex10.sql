@@ -326,6 +326,31 @@ GROUP BY cleaned.Label
 -- BOX 17, Qn 16
 -- Expected: 8816 rows
 
+SELECT 
+    cleaned.Label, 
+    cleaned.neutered, 
+    AVG(cleaned.testcount), 
+    COUNT(cleaned.dog_guid)
+FROM 
+    (SELECT -- subquery part from Qn. 15
+        d.dog_guid, 
+        d.breed_type, 
+        d.dog_fixed AS neutered, 
+        COUNT(c.created_at) AS testcount,
+        CASE 
+        WHEN d.breed_type = 'Pure Breed' THEN 'Pure_Breed'
+        ELSE 'Not_Pure_Breed'
+        END AS Label
+    FROM dogs d 
+        JOIN complete_tests c
+            ON d.dog_guid = c.dog_guid
+    WHERE (d.exclude = '0' OR d.exclude IS NULL) -- exclusion criteria
+    GROUP BY d.dog_guid) 
+    AS cleaned
+GROUP BY cleaned.purebreed, cleaned.neutered;
+
+
+
 -- BOX 18, Qn 17
 -- Expected: 9 rows (ace = 5.4896, charmer = 5.1919)
 
