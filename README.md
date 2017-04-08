@@ -1,6 +1,6 @@
 # SQL Duke
 
-Answers to Duke University's Managing Big Data with MySQL Course (2017). 
+Answers to Duke University's Managing Big Data with MySQL Course (2017) found [here](https://www.coursera.org/learn/analytics-mysql/home/info "Course Information for 'Managing Big Data with MySQL'"). 
 
 ### Lecture Notes
 
