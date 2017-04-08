@@ -92,3 +92,14 @@ Teradata only accepts **single quotation marks**.
 
 Teradata will output data in the format ``YY-MM-DD``. However, it expects date 
 format to be entered in ``YYYY-MM-DD``. 
+
+``TIMESTAMPDIFF(hour/minute/second, var1, var2)`` 
+which calculates the difference between 2 variables in the specified format.
+
+``DAYOFWEEK(datevar)``, where the day of the week will be returned as an 
+integer from 1 - 7 where 1 = Sunday, 2 = Monday, etc. 
+
+### IF ELSE 
+
+Teradata does *not* accept ``IF`` functions. However, we can replace this with ``CASE``.
+
