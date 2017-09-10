@@ -625,7 +625,7 @@ ORDER BY clean.percent_increase DESC
 ### Question 11
 
 **What is the city and state of the store that had the greatest decrease in
-average daily revenue from August to September? **
+average daily revenue from August to September?**
 
 This is easy, just adapt the query from Qn 10 and remove unnecessary tables.
 
@@ -674,6 +674,11 @@ months.**
 number of stores whose month of maximum average daily revenue was in each of the
 twelve months. How do they compare?**
 
+I'm guessing the assignment wants us to see which month has the most number of stores 
+hitting their maximum total revenue in, and also their highest average daily revenue in. 
+
+If the numbers don't match, it might suggest hidden trends, outliers or missing data within the set. 
+
 Things to do:
 1. Calculate the average daily revenue for each store, for each month (for each year, but
 there will only be one year associated with each month)
@@ -682,10 +687,15 @@ there will only be one year associated with each month)
 1. Retrieve all of the rows that have the rank you want
 1. Count all of your retrieved rows 
 
-> DR JANA: You can assign ranks using the ``RANK() OVER (data)`` function in teradata.
+> DR JANA: You can assign ranks using the ``ROW_NUMBER`` or ``RANK()`` function. 
+ Make sure you “partition” by store in your ``ROW_NUMBER`` clause. Lastly when you have 
+ confirmed that the output is reasonable, introduce a ``QUALIFY`` clause 
+ (described in the references above) into your query in order to restrict the output to 
+ rows that represent the month with the minimum average daily revenue for each store.
 
-Starting with task (1), I'll calculate the average daily revenue for each ``store``, by ``month``.
+Starting with task (1) and (2), I'll calculate the average daily revenue for each ``store``, by ``month``.
 We can do this by recycling the query from Qn 9. 
+
 ```sql
 SELECT 
 (CASE
@@ -722,3 +732,122 @@ FROM (
 GROUP BY month_name, sub.store
 ORDER BY avg_daily_revenue DESC; 
 ```
+
+(3) Let's add the bit for ``RANK()`` and ``PARTITION``: (a snippet)
+
+```sql
+SELECT 
+(CASE
+WHEN sub.month_num=1 THEN 'Jan'
+	...
+WHEN sub.month_num=12 THEN 'Dec'
+END) as month_name,
+sub.store,
+SUM(sub.total_revenue) AS sum_monthly_revenue, -- TOTAL monthly rev
+SUM(sub.total_revenue)/SUM(sub.num_dates) AS avg_daily_revenue, -- AVERAGE rev within month
+ROW_NUMBER() OVER (PARTITION BY sub.store ORDER BY avg_daily_revenue DESC ) AS Row_sum_rev, --! 
+ROW_NUMBER() OVER (PARTITION BY sub.store ORDER BY sum_monthly_revenue DESC ) AS Row_avg_rev --!
+FROM (
+	...
+	) AS sub
+GROUP BY month_name, sub.store
+ORDER BY avg_daily_revenue DESC; 
+```
+
+(4)+(5) Finally, let's retrieve all rows with top ranking month, to see which month performed best. 
+
+```sql
+SELECT 
+clean.month_name AS month_n, 
+COUNT(CASE WHEN clean.Row_sum_rev =1 THEN clean.store END) AS Total_monthly_rev_count, -- count number of rank 1s per month
+COUNT(CASE WHEN clean.Row_avg_rev =1 THEN clean.store END) AS Average_daily_rev_count -- count number of rank 1s per month
+FROM (
+	SELECT 
+	(CASE
+	WHEN sub.month_num=1 THEN 'Jan'
+	WHEN sub.month_num=2 THEN 'Feb'
+	WHEN sub.month_num=3 THEN 'Mar'
+	WHEN sub.month_num=4 THEN 'Apr'
+	WHEN sub.month_num=5 THEN 'May'
+	WHEN sub.month_num=6 THEN 'Jun'
+	WHEN sub.month_num=7 THEN 'Jul'
+	WHEN sub.month_num=8 THEN 'Aug'
+	WHEN sub.month_num=9 THEN 'Sep'
+	WHEN sub.month_num=10 THEN 'Oct'
+	WHEN sub.month_num=11 THEN 'Nov'
+	WHEN sub.month_num=12 THEN 'Dec'
+	END) as month_name,
+	sub.store,
+	SUM(sub.total_revenue) AS sum_monthly_revenue,
+	SUM(sub.total_revenue)/SUM(sub.num_dates) AS avg_daily_revenue,
+	ROW_NUMBER() OVER (PARTITION BY sub.store ORDER BY avg_daily_revenue DESC ) AS Row_sum_rev,
+	ROW_NUMBER() OVER (PARTITION BY sub.store ORDER BY sum_monthly_revenue DESC ) AS Row_avg_rev
+	FROM (
+		SELECT 
+		store,
+		EXTRACT (month FROM saledate) AS month_num, 
+		EXTRACT (year FROM saledate) AS year_num,
+		COUNT (DISTINCT saledate) AS num_dates,
+		SUM(amt) AS total_revenue,
+		(CASE 
+		WHEN (year_num=2005 AND month_num=8) THEN 'cannot' ELSE 'can' 
+		END) As can_use_anot
+		FROM trnsact
+		WHERE stype='p' AND can_use_anot='can'
+		GROUP BY month_num, year_num, store
+		HAVING num_dates>=20
+		) AS sub
+	GROUP BY month_name, sub.store
+	) AS clean
+GROUP BY Month_n
+ORDER BY Total_monthly_rev_count DESC
+```
+
+> DR JANA: If you write your queries correctly, you will find that 8 stores have the greatest 
+total sales in April, while only 4 stores have the greatest average daily revenue in April.
+
+| MONTH | TOTAL_MONTHLY | AVG_DAILY |
+| ----- | ------------- | --------- | 
+| Dec | 317 | 321
+| Mar | 4 | 3
+| Jul | 3 | 3
+
+While the output fits with our expectations of the data (ie. that ``Dec`` should be the most popular month), 
+but it doesn't match Dr Jana's hint. 
+
+AFter reading the forum, I realised that official assignment seems to give the wrong hint (quite a significant mistake!). 
+We will get the expected result if we write our queries to find the ``LOWEST`` total sales as ranked by month instead 
+of the ``HIGHEST`` total sales, like so:
+
+```sql
+SELECT 
+clean.month_name AS month_n, 
+COUNT(CASE WHEN clean.Row_sum_rev =1 THEN clean.store END) AS Total_monthly_rev_count, -- change 1 to 12
+COUNT(CASE WHEN clean.Row_avg_rev =1 THEN clean.store END) AS Average_daily_rev_count -- change 1 to 12
+FROM (
+... 
+```
+
+| MONTH | LOW_TOTAL_MONTH | LOW_AVG_DAILY |
+| ----- | --------------- | ------------- |
+| Aug | 120 | 77
+| Jan | 73 | 54
+| Sep | 72 | 108
+| ... | ... | ...
+| Apr | 4 | 8
+| ... | ... | ...
+| Dec | 0 | 0
+
+# End
+
+*Thoughts on this course:*
+*Notes were messy and with quite a few significant mistakes, like that last one we saw. But overall it was a*
+*good introduction to SQL and I appreciate the resources to let us try and play it out.* 
+
+Key takeaways:
+
+* Computational thinking: Learning how to split large, complex problems into smaller sets that can be reassembled later 
+* Rigorous testing and checking of trend inconsistencies using month, year-aggregations, or standard deviations
+* Dealing with outliers and missing data by setting predefined criterias in subqueries
+* Overall syntax nuances between dialects for MySQL, Teradata
+* Perseverance for long queries lol
