@@ -26,7 +26,7 @@ Answers to Duke University's Managing Big Data with MySQL Course (2017) found [h
 * Teradata Week 2 answers
 * Teradata Week 3 answers
 * *No Teradata assignment for Week 4, do quiz instead*
-
+* Teradata Week 5 FINAL EXAM ANSWERS
 
 ### License
 
